@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{.Title}}</title>
+    <link href="favicon.ico" mce_href="favicon.ico" rel="bookmark" type="image/x-icon" /> 
+    <link href="favicon.ico" mce_href="favicon.ico" rel="icon" type="image/x-icon" /> 
+    <link href="favicon.ico" mce_href="favicon.ico" rel="shortcut icon" type="image/x-icon" /> 
+    <link type="text/css" rel="stylesheet" href="/static/dir.css">
+    {{range $i, $s := .Stylesheets}}
+    <link rel="stylesheet" type="text/css" href="{{$s}}">
+    {{end}}
+    <script src="/static/dir.js"></script>
+  </head>
+  <body>
+
+  <div id="topbar">
+    <div class="container">
+      <div id="heading"><a href="/">{{.Title}}</a></div>
+    </div>
+  </div>
+
+  <div id="page">
+
+    <h1>演示文档列表</h1>
+
+    {{with .Path}}<h2>{{.}}</h2>{{end}}
+
+    {{with .Articles}}
+    <h4>文章:</h4>
+    <dl>
+    {{range .}}
+    <dd>
+      {{if .ShowFileName}}
+      <a href="/{{.Path}}">{{.Name}}</a>: {{.Title}}
+      {{else}}
+      <a href="/{{.Path}}">{{.Title}}</a>
+      {{end}}
+    </dd>
+    {{end}}
+    </dl>
+    {{end}}
+
+    {{with .Slides}}
+    <h4>幻灯片:</h4>
+    <dl>
+    {{range .}}
+    <dd>
+      {{if .ShowFileName}}
+      <a href="/{{.Path}}">{{.Name}}</a>: {{.Title}}
+      {{else}}
+      <a href="/{{.Path}}">{{.Title}}</a>
+      {{end}}
+    </dd>
+    {{end}}
+    </dl>
+    {{end}}
+
+    {{with .Other}}
+    <h4>文件列表:</h4>
+    <dl>
+    {{range .}}
+    <dd><a href="/{{.Path}}">{{.Name}}</a></dd>
+    {{end}}
+    </dl>
+    {{end}}
+
+    {{with .Dirs}}
+    <h4>子目录:</h4>
+    <dl>
+    {{range .}}
+    <dd><a href="/{{.Path}}">{{.Name}}</a></dd>
+    {{end}}
+    </dl>
+    {{end}}
+
+  </div>
+
+  <div id="footer">
+    <div id="content">
+      欢迎使用html5slides演示工具，本工具采用Golang开发。
+    </div>
+    <div id="links">
+      <a href="http://golang.org" target="_blank">Golang官方网站</a> |
+      <a href="https://godoc.org/golang.org/x/tools/present" target="_blank">Go官方演示工具</a> |
+      <a href="https://github.com/luohoufu" target="_blank">我的Github</a>
+    </div>
+  </div>
+
+  </body>
+</html>

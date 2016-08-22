@@ -1,0 +1,16 @@
+{
+    "hide-last-slide": "false",
+    "closing-message": "谢谢大家",    
+    "slide-stylesheets": [
+        "//fonts.useso.com/css?family=Raleway:regular,semibold|Varela",
+        "slide.css"
+    ],
+    "article-stylesheets": [
+        "//fonts.useso.com/css?family=Raleway:regular,semibold|Varela",
+        "article.css"
+    ],
+    "directory-stylesheets": [
+        "//fonts.useso.com/css?family=Raleway:regular,semibold|Varela",
+        "directory.css"
+    ]
+}

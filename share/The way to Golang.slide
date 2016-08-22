@@ -1,0 +1,358 @@
+#+theme=black
+
+Go语言编程基础
+带你一起尝试一种新的语言
+2016-08-25 15:04:05
+
+Tonny
+github.com/luohoufu
+
+luohoufu@github.com/luohoufu
+
+https://tour.golang.org
+https://github.com/ardanlabs/gotraining
+http://github.com/luohoufu/gopresentplus
+
+
+* 今天的议程
+
+这是一次头脑风暴，随时可以提问题，打断，插话
+
+- 什么是Go语言/为什么要用Go语言
+- 怎么使用Go语言
+
+休息一下...
+
+- 深入理解Go语言
+- Go语言相关的资源和工具
+
+.image golang/img/gopherbw.png _ 300
+
+* 什么是Go？
+
+Go是一门 *并发支持* 、 *垃圾回收* 的 *编译型*  *系统编程语言* ，旨在创
+造一门具有在静态编译语言的 *高性能* 和动态语言的 *高效开发* 之间拥有
+良好平衡点的一门编程语言。
+
+Go的主要特点有哪些？
+
+- 类型安全 和 内存安全
+- 以非常直观和极低代价的方案实现 *高并发*
+- *高效的* 垃圾回收机制
+- *快速编译* （同时解决C语言中头文件太多的问题）
+- 为多核计算机提供性能提升的方案
+- *UTF-8* 编码支持
+
+* Go的独特性
+- 内置并发原语
+- 通过组合实现继承
+- 拥有指针，但并没有指针运算(默认)
+- 独特的处理软件包和依赖关系
+- 静态链接的本地二进制文件（没有外部依赖关系）
+
+* Go目前有多少实际应用和资源？
+
+- 全球最大视频网站 Youtube（谷歌）
+- 七牛云储存以及旗下网盘服务（Q盘）
+- 爱好者开发的Go论坛及博客
+- 已用Go开发服务端的著名企业：谷歌、盛大、七牛、360
+- 其它海量开源项目：awesome go　docker
+
+* 为什么要用Go语言
+
+最近最火的游戏.
+几乎所有人都在关注.
+Pokémon Go 也许是用Go语言写的.
+
+.image golang/img/pokemon.jpg 400 _
+
+* Go是一门自已为是的语言
+
+Go语言并不是面向对象的，但使用起来感觉很像面向对象.
+
+有很多感觉不舒服，但可读性很好的语法. 
+
+并没有面向对象里通常有的简单的特性 (如: 泛型, 继承).
+
+一些功能被省略或修改，以防止特定的行为 (如: 集合(maps), 断言(asserts), 异常(exceptions)).
+
+Go试图告诉你怎么编码.
+
+* 怎么使用Go语言
+
+* Hello Go!
+
+代码练习: 
+
+.link https://play.golang.org/
+
+.play -numbers golang/code/samples/hello_world.go HLpackage
+
+* 变量
+
+.play golang/code/samples/types.go /START OMIT/,/END OMIT/
+
+* 一些尝试
+
+.play -numbers golang/code/samples/type_assert.go
+
+* 类型转换
+
+.play -numbers golang/code/samples/define_types.go
+
+* 类型
+
+下面的代码可以运行成功吗？
+
+	type Foo int
+	type Bar Foo
+
+	var b Bar
+	i := 1
+	b = Bar(i)
+
+下面的呢?
+
+	var i int64 = 1
+	var j int
+	j = i
+
+* 结构体
+
+.play golang/code/samples/structs.go
+
+* 多个结构体
+
+.play golang/code/samples/structs_extra.go
+
+* 结构体转换
+
+.play -numbers golang/code/samples/structs_typing.go
+
+* 结构化嵌套
+
+.play -numbers golang/code/samples/structs_embed.go
+
+* 你真的不理解结构体？
+
+.play -numbers golang/code/samples/structs_embed_wrong.go
+
+* 扩展
+
+下面的代码可以运行成功吗？
+
+	type Data struct { datas int }
+	type Datum struct { datas int }
+	ds := Data{42}
+	var d Datum = Datum(ds)
+
+
+下面的呢?
+
+	type Kipp struct {
+		Whip int
+		Flip float32
+		Trip string
+	}
+
+	k := Kipp{ 12, 3.14 }
+
+* 结构体回顾
+
+结构体不是对象.只是数据.
+
+嵌套 =/= 继承. 它更像是一个“has-a”的关系.
+
+被嵌套结构体的字段被提升到结构体.
+
+* 数组与切片
+
+所有类型数据的序列.
+
+切片像数组，但更酷.
+
+* 数组
+
+.play -numbers golang/code/samples/arrays.go
+
+* 数组赋值
+
+.play -numbers golang/code/samples/arrays_assign.go
+
+* 数组迭代取值
+
+.play -numbers golang/code/samples/arrays_iter.go
+
+* 切片
+
+.play -numbers golang/code/samples/slices.go
+
+* 切片赋值
+
+.play -numbers golang/code/samples/slices_array_slice.go
+
+* 向切片中增加元素
+
+.play -numbers golang/code/samples/slices_append.go
+
+* 数组与切片扩容
+
+数组与切片都可以用来存放列表数据.
+
+数组拥有固定长度.
+	
+	list := [3]string{"Cersei", "Polliver", "The Hound"}
+
+切片是更灵活的（并被广泛使用）.
+	
+	slice := []int{1, 2}
+	slice = append(slice, 3, 4)
+
+可以从一个现有的数组/切片中得到一个新的切片.
+	
+	slice := arr[1:3]
+
+* 函数
+
+重用代码一直是一件好事.
+
+Go给传统的功能增加一点额外的味道.例如defer函数.
+
+多值返回.
+
+函数可以定义接收者.
+
+入参支持变参.
+
+命名返回值.
+
+函数也是“值”，函数也是“类型”.
+
+* 函数
+
+.play golang/code/samples/functions.go
+
+* 函数多值返回
+
+.play golang/code/samples/functions_multi.go
+
+* 函数赋值
+
+.play -numbers golang/code/samples/functions_cont.go
+
+* 函数接收者
+
+我们使用接收者来定义类型的方法。但只能是“本地”类型.
+
+当增加了接收者，函数被称为方法.
+
+概念：方法是数据的行为或转换（在 C++ 中的“方法”和“函数”的区别，就是“成员函数”和“函数”的区别）
+
+* 函数接收者
+
+.play -numbers golang/code/samples/receiver.go
+
+* 函数传值
+
+.play -numbers golang/code/samples/receiver_ptr.go
+
+* 函数嵌套传值
+
+.play -numbers golang/code/samples/receiver_promote.go
+
+* 方法覆盖
+
+.play -numbers golang/code/samples/receiver_struct.go
+
+* 接口说明
+
+接口隐式定义了一组共享行为的值.
+
+	type Stringer interface {
+	        String() string
+	}
+
+* 接口
+
+.play -numbers golang/code/samples/interface.go
+
+* time.Weekday接口
+
+.iframe http://golang.org/pkg/time/#Weekday 600 1000
+
+* io.Writer 与 fmt.Fprintf
+
+.iframe http://golang.org/pkg/fmt/#Fprintf 200 1000
+
+.iframe http://golang.org/pkg/io/#MultiWriter 200 1000
+
+* 接口示例
+
+.play -numbers golang/code/samples/interfaces_mw.go
+
+* Goroutines
+
+Go编译用来处理并发而不是并行.
+
+Goroutines看起来像线程，但实际上并不是.
+
+一种轻量级的线程 (~2KB 栈).
+
+允许用户调度.
+
+* Goroutines
+
+.play golang/code/samples/goroutines_simple.go
+
+* Goroutines
+
+.play golang/code/samples/goroutines.go
+
+* Goroutines
+
+*M*: OS线程，`它是由OS管理的可执行程序的一个线程`，而且工作起来特别像你的标准POSIX线程。在运行时代码里，它被成为M，即机器（machine）
+*P*: 用于调用的上下文。你可以把它看作在一个单线程上运行代码的调度器的一个本地化版本。它是让我们从N：1调度器转到M：N调度器的重要部分。在运行时代码里，它被叫做P，即处理器（processor）
+*G*: 表示一个goroutine。它包括栈、指令指针以及对于调用goroutines很重要的其它信息，比如阻塞它的任何channel。在可执行代码里，它被称为G. 灰色 == 不活动/等待中, 蓝色 == 活动/运行中
+
+.image golang/img/goroutine.jpg _ 250
+
+* 通道
+
+通道是用来帮助实现并发的内部类型.
+
+goroutines之间允许采用通道进行通讯. 通道本质上是线程安全队列.
+
+通道用于同步，而不是共享（大量的）数据.
+
+通道可以使用buffer.
+
+* 通道
+
+.code golang/code/samples/channels.go
+
+* 不使用缓存的通道
+
+.image golang/img/unbuffered_channels.png
+
+* 使用缓存的通道
+
+.image golang/img/buffered_channels.png
+
+* 包
+
+模块化的体现.
+
+.code golang/code/samples/package.go
+
+* 使用包
+
+.code golang/code/samples/package_main.go
+
+* Go语言相关工具
+
+- go build
+- go fmt
+- go test
+- go test -coverprofile
+
+TODO: 展示环境搭建与调试
