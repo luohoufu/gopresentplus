@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"go/build"
 	"log"
 	"net"
 	"net/http"
@@ -43,15 +42,17 @@ func main() {
 		}
 	}
 
-	p, err := build.Default.Import(basePkg, "", build.FindOnly)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Couldn't find gopresent files: %v\n", err)
-		fmt.Fprintf(os.Stderr, basePathMessage, basePkg)
-		os.Exit(1)
-	}
+	// p, err := build.Default.Import(basePkg, "", build.FindOnly)
+	// if err != nil {
+	// 	fmt.Fprintf(os.Stderr, "Couldn't find gopresent files: %v\n", err)
+	// 	fmt.Fprintf(os.Stderr, basePathMessage, basePkg)
+	// 	os.Exit(1)
+	// }
 
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if basePath == "" {
-		basePath = p.Dir
+		// basePath = p.Dir
+		basePath = dir
 
 		tmpDir := filepath.Join(basePath, "static", "tmp")
 		if err := os.RemoveAll(tmpDir); err != nil {

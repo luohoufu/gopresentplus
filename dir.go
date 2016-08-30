@@ -322,10 +322,10 @@ func dirList(w io.Writer, name string) (isDir bool, err error) {
 	hidePath := false
 	hideFileName := false
 	d := &dirListData{Path: name, Title: "Go语言交流"}
-	for _, fi := range fis {
-		log.Printf("request name is %s",fi.Name())
+	for _, fi := range fis {		
 		// skip the golang prefix directory
 		if name == "." && strings.HasPrefix(fi.Name(), "golang") {
+			log.Printf("the request name is %s",fi.Name())
 			continue
 		}
 		e := dirEntry{
